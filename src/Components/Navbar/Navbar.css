@@ -1,0 +1,58 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #333;
+  box-shadow: 0 0 5px 5px black;
+
+  .logo {
+    order: 1;
+    color: white;
+  }
+
+  .categories {
+    order: 2;
+    text-align: center;
+  }
+
+  .profile {
+    display: flex;
+    align-items: center;
+    order: 3;
+
+    button {
+      margin-right: 10px;
+    }
+
+    svg {
+      margin-left: auto;
+      color: white;
+    }
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    display: inline-block;
+    margin-right: 15px;
+  }
+
+  a {
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+  }
+  a.active > hr {
+    margin-top: 4px;
+    margin-bottom: -4px;
+    box-shadow: 0 0 5px 1px white;
+  }
+  a:not(.active) > hr {
+    display: none;
+  }
+}
