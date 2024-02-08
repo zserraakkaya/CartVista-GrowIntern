@@ -1,5 +1,10 @@
+// useState to keep track of active tab of categories
 import React, { useState } from "react";
+// link
+import { Link } from "react-router-dom";
+// css for Navbar.jsx
 import "./Navbar.css";
+// font awesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCartShopping,
@@ -7,11 +12,11 @@ import {
   faHeart,
 } from "@fortawesome/free-solid-svg-icons";
 
-export const Navbar = () => {
-  // active category
-  const [activeCategory, setActiveCategory] = useState("Heart");
+export const Navbar = ({ setActiveCategory }) => {
+  const [activeCategory, setLocalActiveCategory] = useState("Heart");
 
   const handleCategoryClick = (category) => {
+    setLocalActiveCategory(category);
     setActiveCategory(category);
   };
 
@@ -77,8 +82,12 @@ export const Navbar = () => {
       </div>
 
       <div className="profile">
-        <button>Sign In</button>
-        <FontAwesomeIcon icon={faCartShopping} />
+        <Link to="/signinsignup">
+          <button>Sign In</button>
+        </Link>
+        <Link to="/cart">
+          <FontAwesomeIcon icon={faCartShopping} />
+        </Link>
       </div>
     </div>
   );

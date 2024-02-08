@@ -2,8 +2,6 @@ import p1 from "./1.jpg";
 import p2 from "./2.jpg";
 import p3 from "./3.jpg";
 import p4 from "./4.jpg";
-import p5 from "./5.jpg";
-import p6 from "./6.jpg";
 
 let all_products = [
   {
@@ -35,3 +33,5 @@ let all_products = [
     image: p4,
   },
 ];
+
+export default all_products;
