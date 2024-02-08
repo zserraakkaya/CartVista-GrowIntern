@@ -12,11 +12,11 @@ import {
   faHeart,
 } from "@fortawesome/free-solid-svg-icons";
 
-export const Navbar = () => {
-  // active category
-  const [activeCategory, setActiveCategory] = useState("Heart");
+export const Navbar = ({ setActiveCategory }) => {
+  const [activeCategory, setLocalActiveCategory] = useState("Heart");
 
   const handleCategoryClick = (category) => {
+    setLocalActiveCategory(category);
     setActiveCategory(category);
   };
 

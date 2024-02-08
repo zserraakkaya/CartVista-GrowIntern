@@ -2,20 +2,32 @@ import React from "react";
 import "./Item.css";
 import all_products from "../Assets/all_products";
 
-export const Item = (props) => {
+export const Item = ({ activeCategory }) => {
+  let filteredProducts;
+
+  if (activeCategory.toLowerCase() === "heart") {
+    // If the active category is "Heart", display all products
+    filteredProducts = all_products;
+  } else {
+    // Otherwise, filter based on the active category
+    filteredProducts = all_products.filter(
+      (item) =>
+        item.category &&
+        item.category.toLowerCase() === activeCategory.toLowerCase()
+    );
+  }
+
   return (
     <div className="item">
-      {all_products.map((item, i) => {
-        return (
-          <SingleItem
-            key={i}
-            id={item.id}
-            image={item.image}
-            title={item.title}
-            price={item.price}
-          />
-        );
-      })}
+      {filteredProducts.map((item, i) => (
+        <SingleItem
+          key={i}
+          id={item.id}
+          image={item.image}
+          title={item.title}
+          price={item.price}
+        />
+      ))}
     </div>
   );
 };
