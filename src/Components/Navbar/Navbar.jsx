@@ -30,7 +30,7 @@ export const Navbar = ({ setActiveCategory }) => {
         <ul>
           <li>
             <a
-              href="#"
+              href="/"
               onClick={() => handleCategoryClick("Heart")}
               className={activeCategory === "Heart" ? "active" : ""}
             >

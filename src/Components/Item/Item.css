@@ -35,3 +35,55 @@
   font-style: italic;
   font-family: "Andele";
 }
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0;
+}
+
+.left-content {
+  display: flex;
+}
+
+.text-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.right-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.image-container {
+  position: relative;
+}
+
+.star-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.shining {
+  animation: shine 1s ease-in-out;
+}
+.yellow {
+  color: yellow;
+}
+
+@keyframes shine {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.4);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

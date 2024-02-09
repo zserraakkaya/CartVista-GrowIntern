@@ -1,0 +1,36 @@
+/* SignInSignUp.css */
+
+.sign-in-sign-up-container {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+.sign-in,
+.sign-up {
+  width: 45%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 8px;
+}
+
+input {
+  padding: 8px;
+  margin-bottom: 16px;
+}
+
+button {
+  padding: 10px;
+  background-color: #24a0ed;
+  border-radius: 10px;
+  border: 1px solid #fff;
+  padding: 10px 20px;
+  color: #fff;
+  cursor: pointer;
+}
