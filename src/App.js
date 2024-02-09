@@ -13,8 +13,9 @@ function App() {
     <div>
       <Router>
         <Navbar setActiveCategory={setActiveCategory} />
-        <Item activeCategory={activeCategory} />
+        {/* <Item activeCategory={activeCategory} /> */}
         <Routes>
+          <Route path="/" element={<Item activeCategory={activeCategory} />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/signinsignup" element={<SignInSignUp />} />
         </Routes>
