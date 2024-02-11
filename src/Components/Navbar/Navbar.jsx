@@ -11,9 +11,15 @@ import {
   faJedi,
   faHeart,
 } from "@fortawesome/free-solid-svg-icons";
+// all_products
+import all_products from "../Assets/all_products";
 
 export const Navbar = ({ setActiveCategory }) => {
   const [activeCategory, setLocalActiveCategory] = useState("Heart");
+
+  const uniqueCategories = [
+    ...new Set(all_products.map((item) => item.category)),
+  ];
 
   const handleCategoryClick = (category) => {
     setLocalActiveCategory(category);
@@ -35,49 +41,21 @@ export const Navbar = ({ setActiveCategory }) => {
               className={activeCategory === "Heart" ? "active" : ""}
             >
               <FontAwesomeIcon icon={faHeart} style={{ color: "#ffffff" }} />
-              <hr className={activeCategory === "Sweater" ? "active" : ""} />
+              <hr className={activeCategory === "Heart" ? "active" : ""} />
             </a>
           </li>
-          <li>
-            <a
-              href="#"
-              onClick={() => handleCategoryClick("Sweater")}
-              className={activeCategory === "Sweater" ? "active" : ""}
-            >
-              Sweater
-              <hr className={activeCategory === "Sweater" ? "active" : ""} />
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              onClick={() => handleCategoryClick("Necklace")}
-              className={activeCategory === "Necklace" ? "active" : ""}
-            >
-              Necklace
-              <hr className={activeCategory === "Necklace" ? "active" : ""} />
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              onClick={() => handleCategoryClick("Coat")}
-              className={activeCategory === "Coat" ? "active" : ""}
-            >
-              Coat
-              <hr className={activeCategory === "Coat" ? "active" : ""} />
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              onClick={() => handleCategoryClick("Shoes")}
-              className={activeCategory === "Shoes" ? "active" : ""}
-            >
-              Shoes
-              <hr className={activeCategory === "Shoes" ? "active" : ""} />
-            </a>
-          </li>
+          {uniqueCategories.map((category, index) => (
+            <li key={index}>
+              <Link
+                to="/"
+                onClick={() => handleCategoryClick(category)}
+                className={activeCategory === category ? "active" : ""}
+              >
+                {category.charAt(0).toUpperCase() + category.slice(1)}
+                <hr className={activeCategory === category ? "active" : ""} />
+              </Link>
+            </li>
+          ))}
         </ul>
       </div>
 
