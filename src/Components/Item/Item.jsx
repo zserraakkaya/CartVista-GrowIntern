@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import "./Item.css";
 import all_products from "../Assets/all_products";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartPlus, faStar } from "@fortawesome/free-solid-svg-icons";
+import { faCartPlus, faStar, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useCart } from "../../Context/CartContext";
 
 export const Item = ({ activeCategory }) => {
-  const [size, setSize] = useState("");
+  const [sizes, setSizes] = useState({});
 
   let filteredProducts;
 
@@ -20,6 +20,10 @@ export const Item = ({ activeCategory }) => {
     );
   }
 
+  const handleSizeChange = (itemId, newSize) => {
+    setSizes((prevSizes) => ({ ...prevSizes, [itemId]: newSize }));
+  };
+
   return (
     <div className="item">
       {filteredProducts.map((item, i) => (
@@ -29,8 +33,8 @@ export const Item = ({ activeCategory }) => {
           image={item.image}
           title={item.title}
           price={item.price}
-          size={size}
-          setSize={setSize}
+          size={sizes[item.id] || ""}
+          setSize={(newSize) => handleSizeChange(item.id, newSize)}
         />
       ))}
     </div>
@@ -39,6 +43,8 @@ export const Item = ({ activeCategory }) => {
 
 const SingleItem = (props) => {
   const [isStarClicked, setStarClicked] = useState(false);
+
+  const [showPlusIcon, setShowPlusIcon] = useState(false);
 
   const { addToCart } = useCart();
 
@@ -58,10 +64,16 @@ const SingleItem = (props) => {
       price: props.price,
       size: size,
     });
+
+    setShowPlusIcon(true);
+
+    setTimeout(() => {
+      setShowPlusIcon(false);
+    }, 1000);
   };
 
   return (
-    <div className="single-item">
+    <div className="single-item" id={`item-${props.id}`}>
       <div className="image-container">
         <div
           className={`star-icon ${isStarClicked ? "shining" : ""}`}
@@ -96,9 +108,20 @@ const SingleItem = (props) => {
             <option value="S">S</option>
             <option value="XS">XS</option>
           </select>
-          <button type="submit" onClick={() => handleAddToCart(props.size)}>
-            <FontAwesomeIcon icon={faCartPlus} />
-          </button>
+          <div className="button-container">
+            <button
+              class="add-to-cart-button"
+              type="submit"
+              onClick={() => handleAddToCart(props.size)}
+            >
+              <FontAwesomeIcon icon={faCartPlus} />
+            </button>
+            {showPlusIcon && (
+              <div className="plus-icon">
+                <FontAwesomeIcon icon={faPlus} />
+              </div>
+            )}
+          </div>
         </form>
       </div>
     </div>
