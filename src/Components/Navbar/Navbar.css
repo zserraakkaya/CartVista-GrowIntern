@@ -60,3 +60,18 @@
     display: none;
   }
 }
+
+.cart-icon {
+  position: relative;
+}
+
+.cart-count {
+  position: absolute;
+  top: -11px;
+  right: -11px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 3px 6px;
+  font-size: 10px;
+}

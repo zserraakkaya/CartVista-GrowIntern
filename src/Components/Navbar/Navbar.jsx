@@ -13,8 +13,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 // all_products
 import all_products from "../Assets/all_products";
+import { useCart } from "../../Context/CartContext";
 
 export const Navbar = ({ setActiveCategory }) => {
+  const { cartItems } = useCart();
+
   const [activeCategory, setLocalActiveCategory] = useState("Heart");
 
   const uniqueCategories = [
@@ -63,8 +66,11 @@ export const Navbar = ({ setActiveCategory }) => {
         <Link to="/signinsignup">
           <button>Sign In</button>
         </Link>
-        <Link to="/cart">
+        <Link to="/cart" className="cart-icon">
           <FontAwesomeIcon icon={faCartShopping} />
+          {cartItems.length > 0 && (
+            <span className="cart-count">{cartItems.length}</span>
+          )}
         </Link>
       </div>
     </div>
