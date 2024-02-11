@@ -1,0 +1,46 @@
+table {
+  margin: 40px auto;
+  width: 60%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+th,
+td {
+  border: 1px solid darkgray;
+  padding: 15px;
+}
+
+#table-img {
+  width: 100px;
+  height: auto;
+}
+
+#table-title {
+  display: block;
+  font-style: italic;
+}
+
+#table-img,
+#table-title {
+  padding: 0;
+  margin: 0;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+.trash {
+  border: none;
+  background-color: white;
+}
+
+#total-price {
+  text-align: center;
+}
+
+#pay-button {
+  display: block;
+  margin: 5px auto;
+}
