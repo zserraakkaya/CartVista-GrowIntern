@@ -5,10 +5,14 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import "./Cart.css";
 
 const Cart = () => {
-  const { cartItems } = useCart();
+  const { cartItems, removeFromCart } = useCart();
 
   const calculateTotalPrice = () => {
     return cartItems.reduce((total, item) => total + item.price, 0);
+  };
+
+  const handleRemoveItem = (itemId) => {
+    removeFromCart(itemId);
   };
 
   return (
@@ -19,7 +23,7 @@ const Cart = () => {
             <th>Product</th>
             <th>Size</th>
             <th>Price</th>
-            <th class="trash"></th>
+            <th className="trash"></th>
           </tr>
         </thead>
         <tbody>
@@ -33,8 +37,12 @@ const Cart = () => {
               </td>
               <td>{item.size}</td>
               <td>{item.price} €</td>
-              <td class="trash">
-                <FontAwesomeIcon icon={faTrash} />
+              <td className="trash">
+                <FontAwesomeIcon
+                  id="remove-button"
+                  icon={faTrash}
+                  onClick={() => handleRemoveItem(item.id)}
+                />
               </td>
             </tr>
           ))}

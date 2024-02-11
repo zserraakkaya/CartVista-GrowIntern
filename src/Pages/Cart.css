@@ -36,6 +36,10 @@ th {
   background-color: white;
 }
 
+#remove-button {
+  cursor: pointer;
+}
+
 #total-price {
   text-align: center;
 }
