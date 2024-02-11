@@ -52,7 +52,7 @@ const Cart = () => {
             <td className="trash">
               <div>
                 <strong>Total Price: {calculateTotalPrice()} €</strong>
-                <button id="pay-button">Pay</button>
+                <button id="pay-button">Proceed to Checkout</button>
               </div>
             </td>
           </tr>

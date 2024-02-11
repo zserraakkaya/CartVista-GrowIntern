@@ -7,8 +7,8 @@ table {
 
 th,
 td {
-  border: 1px solid darkgray;
-  padding: 15px;
+  border-bottom: 1px solid darkgray;
+  padding: 5px;
 }
 
 #table-img {
