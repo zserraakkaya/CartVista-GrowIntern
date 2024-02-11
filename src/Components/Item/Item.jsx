@@ -1,19 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+// axios
+import axios from "axios";
 import "./Item.css";
-import all_products from "../Assets/all_products";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus, faStar, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useCart } from "../../Context/CartContext";
 
 export const Item = ({ activeCategory }) => {
+  const [products, setProducts] = useState([]);
+
   const [sizes, setSizes] = useState({});
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/api/products")
+      .then((response) => setProducts(response.data))
+      .catch((error) => console.error(error));
+  }, []);
 
   let filteredProducts;
 
   if (activeCategory.toLowerCase() === "heart") {
-    filteredProducts = all_products;
+    filteredProducts = products;
   } else {
-    filteredProducts = all_products.filter(
+    filteredProducts = products.filter(
       (item) =>
         item.category &&
         item.category.toLowerCase() === activeCategory.toLowerCase()
@@ -64,6 +74,8 @@ const SingleItem = (props) => {
       price: props.price,
       size: size,
     });
+
+    props.setSize("");
 
     setShowPlusIcon(true);
 

@@ -1,5 +1,7 @@
 // useState to keep track of active tab of categories
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+// axios
+import axios from "axios";
 // link
 import { Link } from "react-router-dom";
 // css for Navbar.jsx
@@ -11,18 +13,23 @@ import {
   faJedi,
   faHeart,
 } from "@fortawesome/free-solid-svg-icons";
-// all_products
-import all_products from "../Assets/all_products";
 import { useCart } from "../../Context/CartContext";
 
 export const Navbar = ({ setActiveCategory }) => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/api/products")
+      .then((response) => setProducts(response.data))
+      .catch((error) => console.error(error));
+  }, []);
+
   const { cartItems } = useCart();
 
   const [activeCategory, setLocalActiveCategory] = useState("Heart");
 
-  const uniqueCategories = [
-    ...new Set(all_products.map((item) => item.category)),
-  ];
+  const uniqueCategories = [...new Set(products.map((item) => item.category))];
 
   const handleCategoryClick = (category) => {
     setLocalActiveCategory(category);
