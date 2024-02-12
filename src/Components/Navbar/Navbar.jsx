@@ -70,6 +70,9 @@ export const Navbar = ({ setActiveCategory }) => {
       </div>
 
       <div className="profile">
+        <Link to="/sellproduct">
+          <button>Sell Now!</button>
+        </Link>
         <Link to="/signinsignup">
           <button>Sign In</button>
         </Link>

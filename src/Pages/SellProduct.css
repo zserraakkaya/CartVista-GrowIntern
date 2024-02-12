@@ -1,0 +1,43 @@
+/* App.css (or any other CSS file you import in your project) */
+
+.sell-product-container {
+  max-width: 600px;
+  margin: 40px auto 20px;
+  padding: 20px;
+  border: 1px solid #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.2);
+}
+
+.sell-product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sell-product-label {
+  font-weight: normal;
+  text-align: center;
+  font-style: italic;
+}
+
+.sell-product-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.sell-product-button {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.sell-product-button:hover {
+  background-color: #45a049;
+}

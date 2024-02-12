@@ -1,5 +1,6 @@
 const express = require("express");
 const { MongoClient } = require("mongodb");
+const cors = require("cors");
 require("dotenv").config();
 
 const app = express();
@@ -9,6 +10,7 @@ const uri = process.env.MONGO_URI;
 const client = new MongoClient(uri);
 
 app.use(express.json());
+app.use(cors());
 
 // get products
 app.get("/api/products", async (req, res) => {

@@ -1,7 +1,7 @@
 // SignInSignUp.js
 
 import React from "react";
-import "./SignInSignUp.css"; // Import your CSS file
+import "./SignInSignUp.css";
 
 const SignInSignUp = () => {
   return (
