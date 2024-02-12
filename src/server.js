@@ -1,35 +1,43 @@
-require("dotenv").config();
-
 const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
+const { MongoClient } = require("mongodb");
+require("dotenv").config();
 
 const app = express();
 const port = 4000;
 
-app.use(cors());
+const uri = process.env.MONGO_URI;
+const client = new MongoClient(uri);
+
 app.use(express.json());
 
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-const productSchema = new mongoose.Schema({
-  category: String,
-  title: String,
-  price: Number,
-  image: String,
-});
-
-const Product = mongoose.model("Product", productSchema);
-
+// get products
 app.get("/api/products", async (req, res) => {
   try {
-    const products = await Product.find({});
-    res.json(products);
-  } catch (error) {
-    console.error(error);
+    await client.connect();
+    const db = client.db("cartvista");
+    const col = db.collection("products");
+    const filter = {};
+    const documents = await col.find(filter).toArray();
+    res.json(documents);
+  } catch (err) {
+    console.error(err.stack);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+// Post a product
+app.post("/api/products", async (req, res) => {
+  try {
+    await client.connect();
+    const db = client.db("cartvista");
+    const col = db.collection("products");
+
+    const newProduct = req.body;
+    const result = await col.insertOne(newProduct);
+
+    res.json({ success: true, insertedId: result.insertedId });
+  } catch (err) {
+    console.error(err.stack);
     res.status(500).send("Internal Server Error");
   }
 });
