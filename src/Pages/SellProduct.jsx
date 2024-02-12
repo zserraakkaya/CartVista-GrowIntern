@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import axios from "axios";
+// css
 import "./SellProduct.css";
+import axios from "axios";
 
 export const SellProduct = () => {
   const [product, setProduct] = useState({
@@ -86,3 +87,5 @@ export const SellProduct = () => {
     </div>
   );
 };
+
+export default SellProduct;

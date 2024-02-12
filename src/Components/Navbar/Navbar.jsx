@@ -13,6 +13,7 @@ import {
   faJedi,
   faHeart,
 } from "@fortawesome/free-solid-svg-icons";
+// useCart Cart Context to show how many items are on the card at that moment
 import { useCart } from "../../Context/CartContext";
 
 export const Navbar = ({ setActiveCategory }) => {
@@ -47,11 +48,13 @@ export const Navbar = ({ setActiveCategory }) => {
           <li>
             <a
               href="/"
-              onClick={() => handleCategoryClick("Heart")}
-              className={activeCategory === "Heart" ? "active" : ""}
+              onClick={() => handleCategoryClick("AllProducts")}
+              className={activeCategory === "AllProducts" ? "active" : ""}
             >
               <FontAwesomeIcon icon={faHeart} style={{ color: "#ffffff" }} />
-              <hr className={activeCategory === "Heart" ? "active" : ""} />
+              <hr
+                className={activeCategory === "AllProducts" ? "active" : ""}
+              />
             </a>
           </li>
           {uniqueCategories.map((category, index) => (

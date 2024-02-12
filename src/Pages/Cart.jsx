@@ -1,8 +1,11 @@
 import React from "react";
+// useCart context
 import { useCart } from "../Context/CartContext";
+// css
+import "./Cart.css";
+// font awesome icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import "./Cart.css";
 
 const Cart = () => {
   const { cartItems, removeFromCart } = useCart();

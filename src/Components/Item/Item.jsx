@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
+// css
+import "./Item.css";
 // axios
 import axios from "axios";
-import "./Item.css";
+// font awesome icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus, faStar, faPlus } from "@fortawesome/free-solid-svg-icons";
+// useCart Cart Context to add items to the cart
 import { useCart } from "../../Context/CartContext";
 
 export const Item = ({ activeCategory }) => {
