@@ -2,8 +2,21 @@ import React, { useState } from "react";
 // css
 import "./SellProduct.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../Context/AuthContext";
 
 export const SellProduct = () => {
+  // check if user signed in
+  const { isAuthenticated } = useAuth();
+  // navigate user to sign up page if user didnt sign in
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/signinsignup");
+    }
+  }, [isAuthenticated, navigate]);
+
   const [product, setProduct] = useState({
     category: "",
     title: "",
