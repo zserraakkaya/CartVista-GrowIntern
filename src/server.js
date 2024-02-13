@@ -138,6 +138,44 @@ app.post("/api/add-to-favorites", async (req, res) => {
   }
 });
 
+// Get Favorites
+app.get("/api/favorites", async (req, res) => {
+  try {
+    await client.connect();
+    const db = client.db("cartvista");
+    const col = db.collection("favorites");
+    const filter = {};
+    const documents = await col.find(filter).toArray();
+    res.json({ favoriteItems: documents });
+  } catch (err) {
+    console.error(err.stack);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+// Remove from Favorites
+app.delete("/api/remove-from-favorites/:productId", async (req, res) => {
+  try {
+    await client.connect();
+    const db = client.db("cartvista");
+    const col = db.collection("favorites");
+
+    const { userEmail } = req.body;
+    const productId = req.params.productId;
+
+    const result = await col.deleteOne({ userEmail, productId });
+
+    if (result.deletedCount === 1) {
+      res.json({ success: true });
+    } else {
+      res.status(404).json({ error: "Item not found in favorites" });
+    }
+  } catch (err) {
+    console.error(err.stack);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
