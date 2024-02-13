@@ -11,7 +11,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCartShopping,
   faJedi,
-  faHeart,
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
 // useCart Cart Context to show how many items are on the card at that moment
@@ -38,6 +37,9 @@ export const Navbar = ({ setActiveCategory }) => {
   const uniqueCategories = [...new Set(products.map((item) => item.category))];
 
   const handleCategoryClick = (category) => {
+    if (category === "Favorites") {
+      setActiveCategory(category);
+    }
     setLocalActiveCategory(category);
     setActiveCategory(category);
   };
@@ -51,16 +53,16 @@ export const Navbar = ({ setActiveCategory }) => {
       <div className="categories">
         <ul>
           <li>
-            <a
-              href="/"
+            <Link
+              to="/"
               onClick={() => handleCategoryClick("AllProducts")}
               className={activeCategory === "AllProducts" ? "active" : ""}
             >
-              <FontAwesomeIcon icon={faHeart} style={{ color: "#ffffff" }} />
+              All
               <hr
                 className={activeCategory === "AllProducts" ? "active" : ""}
               />
-            </a>
+            </Link>
           </li>
           {uniqueCategories.map((category, index) => (
             <li key={index}>
@@ -76,12 +78,20 @@ export const Navbar = ({ setActiveCategory }) => {
           ))}
           {isAuthenticated ? (
             <>
-              <Link to="/favorites">
-                <button id="favorites">
+              <li>
+                <Link
+                  to="/favorites"
+                  id="favorites"
+                  onClick={() => handleCategoryClick("Favorites")}
+                  className={activeCategory === "Favorites" ? "active" : ""}
+                >
                   Favorites
                   <FontAwesomeIcon icon={faStar} style={{ color: "#FFD43B" }} />
-                </button>
-              </Link>
+                  <hr
+                    className={activeCategory === "Favorites" ? "active" : ""}
+                  />
+                </Link>
+              </li>
             </>
           ) : (
             <></>
