@@ -28,7 +28,7 @@ export const Navbar = ({ setActiveCategory }) => {
 
   const { cartItems } = useCart();
 
-  const [activeCategory, setLocalActiveCategory] = useState("Heart");
+  const [activeCategory, setLocalActiveCategory] = useState("AllProducts");
 
   const uniqueCategories = [...new Set(products.map((item) => item.category))];
 

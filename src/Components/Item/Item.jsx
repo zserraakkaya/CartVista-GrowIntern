@@ -23,7 +23,7 @@ export const Item = ({ activeCategory }) => {
 
   let filteredProducts;
 
-  if (activeCategory.toLowerCase() === "heart") {
+  if (activeCategory.toLowerCase() === "allproducts") {
     filteredProducts = products;
   } else {
     filteredProducts = products.filter(
