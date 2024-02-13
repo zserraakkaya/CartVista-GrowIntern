@@ -9,8 +9,31 @@ export const useFavorite = () => {
 export const FavoriteProvider = ({ children }) => {
   const [favoriteItems, setFavoriteItems] = useState([]);
 
-  const addToFavorite = (item) => {
-    setFavoriteItems((prevItems) => [...prevItems, item]);
+  const addToFavorite = async (userEmail, productId) => {
+    try {
+      const response = await fetch(
+        "http://localhost:4000/api/add-to-favorites",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userEmail,
+            productId,
+          }),
+        }
+      );
+
+      if (response.ok) {
+        console.log("Added to favorites");
+      } else {
+        const errorData = await response.json();
+        console.error("Error", errorData.error);
+      }
+    } catch (error) {
+      console.error("Error", error);
+    }
   };
 
   const removeFromFavorite = (itemId) => {

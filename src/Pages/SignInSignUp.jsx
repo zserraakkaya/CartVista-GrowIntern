@@ -54,7 +54,8 @@ const SignInSignUp = () => {
 
       if (response.ok) {
         console.log("Sign in successful");
-        signIn();
+        const responseData = await response.json();
+        signIn(responseData);
         navigate("/");
       } else {
         const errorData = await response.json();

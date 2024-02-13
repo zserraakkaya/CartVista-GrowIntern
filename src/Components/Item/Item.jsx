@@ -59,7 +59,7 @@ export const Item = ({ activeCategory }) => {
 };
 
 const SingleItem = (props) => {
-  const { isAuthenticated } = useAuth();
+  const { userEmail, isAuthenticated } = useAuth();
 
   const [showPlusIcon, setShowPlusIcon] = useState(false);
 
@@ -89,17 +89,17 @@ const SingleItem = (props) => {
     }, 1000);
   };
 
-  const handleAddToFavorite = (size) => {
+  const handleAddToFavorite = (e) => {
     if (!isAuthenticated) {
       window.location.href = "/signinsignup";
       return;
     }
 
+    e.preventDefault();
+
     addToFavorite({
-      id: props.id,
-      title: props.title,
-      image: props.image,
-      price: props.price,
+      userEmail: userEmail,
+      productId: props.id,
     });
   };
 

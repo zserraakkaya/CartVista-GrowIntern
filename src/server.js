@@ -100,10 +100,38 @@ app.post("/api/signin", async (req, res) => {
     const passwordMatch = await bcrypt.compare(password, user.password);
 
     if (passwordMatch) {
-      res.json({ success: true, message: "Sign in successful" });
+      res.json({
+        success: true,
+        message: "Sign in successful",
+        userId: user._id,
+        userEmail: user.email,
+      });
     } else {
       res.status(401).json({ error: "Invalid email or password" });
     }
+  } catch (err) {
+    console.error(err.stack);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+// Add to Fav.s
+app.post("/api/add-to-favorites", async (req, res) => {
+  try {
+    await client.connect();
+    const db = client.db("cartvista");
+    const col = db.collection("favorites");
+
+    const { userEmail, productId } = req.body;
+
+    const newFavorite = {
+      userEmail,
+      productId,
+    };
+
+    const result = await col.insertOne(newFavorite);
+
+    res.json({ success: true, insertedId: result.insertedId });
   } catch (err) {
     console.error(err.stack);
     res.status(500).send("Internal Server Error");
