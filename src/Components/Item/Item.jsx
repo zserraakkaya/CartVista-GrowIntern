@@ -46,7 +46,7 @@ export const Item = ({ activeCategory }) => {
       {filteredProducts.map((item, i) => (
         <SingleItem
           key={i}
-          id={item.id}
+          id={item._id}
           image={item.image}
           title={item.title}
           price={item.price}
@@ -97,10 +97,7 @@ const SingleItem = (props) => {
 
     e.preventDefault();
 
-    addToFavorite({
-      userEmail: userEmail,
-      productId: props.id,
-    });
+    addToFavorite(userEmail, props.id);
   };
 
   return (
