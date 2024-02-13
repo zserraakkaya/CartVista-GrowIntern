@@ -19,7 +19,7 @@ export const FavoriteProvider = ({ children }) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            userEmail,
+            userEmail: userEmail.userEmail,
             productId,
           }),
         }
