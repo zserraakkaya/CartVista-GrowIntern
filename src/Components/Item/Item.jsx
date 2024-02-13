@@ -8,10 +8,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus, faStar, faPlus } from "@fortawesome/free-solid-svg-icons";
 // useCart Cart Context to add items to the cart
 import { useCart } from "../../Context/CartContext";
+// useFavorite for favorite items
+import useFavorite from "../../Context/FavoriteContext";
 // useAuth to check if the user signed in -> so the user can add an item to favorites
 import { useAuth } from "../../Context/AuthContext";
-// link
-import { Link } from "react-router-dom";
 
 export const Item = ({ activeCategory }) => {
   const [products, setProducts] = useState([]);
@@ -61,20 +61,11 @@ export const Item = ({ activeCategory }) => {
 const SingleItem = (props) => {
   const { isAuthenticated } = useAuth();
 
-  const [isStarClicked, setStarClicked] = useState(false);
-
   const [showPlusIcon, setShowPlusIcon] = useState(false);
 
   const { addToCart } = useCart();
 
-  const handleStarClick = () => {
-    if (!isAuthenticated) {
-      window.location.href = "/signinsignup";
-      return;
-    }
-
-    setStarClicked(!isStarClicked);
-  };
+  const { addToFavorite } = useFavorite();
 
   const handleAddToCart = (size) => {
     if (!size) {
@@ -98,19 +89,33 @@ const SingleItem = (props) => {
     }, 1000);
   };
 
+  const handleAddToFavorite = (size) => {
+    if (!isAuthenticated) {
+      window.location.href = "/signinsignup";
+      return;
+    }
+
+    addToFavorite({
+      id: props.id,
+      title: props.title,
+      image: props.image,
+      price: props.price,
+    });
+  };
+
   return (
     <div className="single-item" id={`item-${props.id}`}>
       <div className="image-container">
         <div
-          className={`star-icon ${isStarClicked ? "shining" : ""}`}
-          onClick={handleStarClick}
+          //className={`star-icon ${isStarClicked ? "shining" : ""}`}
+          onClick={handleAddToFavorite}
         >
           <FontAwesomeIcon
             icon={faStar}
-            className={isStarClicked ? "yellow" : ""}
+            //className={isStarClicked ? "yellow" : ""}
           />
         </div>
-        <img src={props.image} alt="" />
+        <img src={props.image} alt={props.title} />
       </div>
       <div className="container">
         <div className="left-content">
