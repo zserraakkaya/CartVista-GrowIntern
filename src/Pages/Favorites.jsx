@@ -6,7 +6,7 @@ import { useFavorite } from "../Context/FavoriteContext";
 import "./Favorites.css";
 // font awesome icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartPlus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faCartPlus, faPlus, faStar } from "@fortawesome/free-solid-svg-icons";
 // useCart Cart Context to add items to the cart
 import { useCart } from "../Context/CartContext";
 
@@ -89,10 +89,34 @@ const FavoriteItem = ({
     }, 1000);
   };
 
+  const { addToFavorite, removeFromFavorite, favoriteItems } = useFavorite();
+  const isFavorite = favoriteItems.some((item) => item.id === id);
+
+  const handleToggleFavorite = () => {
+    if (isFavorite) {
+      removeFromFavorite(id);
+    } else {
+      addToFavorite({
+        id: id,
+        title: title,
+        image: image,
+        price: price,
+      });
+    }
+  };
+
   return (
     <div className="single-item" id={`item-${id}`}>
-      <button onClick={() => handleRemove(id)}>Remove from Favorites</button>
       <div className="image-container">
+        <div
+          className={`star-icon ${isFavorite ? "shining" : ""}`}
+          onClick={() => handleRemove(id)}
+        >
+          <FontAwesomeIcon
+            icon={faStar}
+            className={isFavorite ? "yellow" : ""}
+          />
+        </div>
         <img src={image} alt={title} />
       </div>
       <div className="container">

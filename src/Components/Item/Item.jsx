@@ -65,7 +65,8 @@ const SingleItem = (props) => {
 
   const { addToCart } = useCart();
 
-  const { addToFavorite } = useFavorite();
+  const { addToFavorite, favoriteItems } = useFavorite();
+  const isFavorite = favoriteItems.some((item) => item.id === props.id);
 
   const handleAddToCart = (size) => {
     if (!size) {
@@ -107,12 +108,12 @@ const SingleItem = (props) => {
     <div className="single-item" id={`item-${props.id}`}>
       <div className="image-container">
         <div
-          //className={`star-icon ${isStarClicked ? "shining" : ""}`}
+          className={`star-icon ${isFavorite ? "shining" : ""}`}
           onClick={handleAddToFavorite}
         >
           <FontAwesomeIcon
             icon={faStar}
-            //className={isStarClicked ? "yellow" : ""}
+            className={isFavorite ? "yellow" : ""}
           />
         </div>
         <img src={props.image} alt={props.title} />
