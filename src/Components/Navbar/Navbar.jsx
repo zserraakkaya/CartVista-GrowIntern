@@ -12,6 +12,7 @@ import {
   faCartShopping,
   faJedi,
   faHeart,
+  faStar,
 } from "@fortawesome/free-solid-svg-icons";
 // useCart Cart Context to show how many items are on the card at that moment
 import { useCart } from "../../Context/CartContext";
@@ -29,7 +30,7 @@ export const Navbar = ({ setActiveCategory }) => {
   }, []);
 
   const { cartItems } = useCart();
-  
+
   const { isAuthenticated, signOut } = useAuth();
 
   const [activeCategory, setLocalActiveCategory] = useState("AllProducts");
@@ -73,6 +74,18 @@ export const Navbar = ({ setActiveCategory }) => {
               </Link>
             </li>
           ))}
+          {isAuthenticated ? (
+            <>
+              <Link to="/favorites">
+                <button id="favorites">
+                  Favorites
+                  <FontAwesomeIcon icon={faStar} style={{ color: "#FFD43B" }} />
+                </button>
+              </Link>
+            </>
+          ) : (
+            <></>
+          )}
         </ul>
       </div>
 

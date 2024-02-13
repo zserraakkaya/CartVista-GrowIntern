@@ -10,6 +10,7 @@ import Item from "./Components/Item/Item";
 import Cart from "./Pages/Cart";
 import SignInSignUp from "./Pages/SignInSignUp";
 import SellProduct from "./Pages/SellProduct";
+import { Favorites } from "./Pages/Favorites";
 
 function App() {
   const [activeCategory, setActiveCategory] = useState("AllProducts");
@@ -23,6 +24,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/signinsignup" element={<SignInSignUp />} />
           <Route path="/sellproduct" element={<SellProduct />} />
+          <Route path="/favorites" element={<Favorites />} />
         </Routes>
       </Router>
     </div>
