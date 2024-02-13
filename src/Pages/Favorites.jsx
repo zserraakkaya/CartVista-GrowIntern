@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../Context/AuthContext";
 // useFavorite Context
-import useFavorite from "../Context/FavoriteContext";
+import { useFavorite } from "../Context/FavoriteContext";
 import "./Favorites.css";
 // font awesome icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -65,7 +65,7 @@ const FavoriteItem = ({
 }) => {
   const [showPlusIcon, setShowPlusIcon] = useState(false);
 
-  const { removeFromFavorite, addToCart } = useFavorite();
+  const { addToCart } = useCart();
 
   const handleAddToCart = (selectedSize) => {
     if (!selectedSize) {
@@ -91,9 +91,9 @@ const FavoriteItem = ({
 
   return (
     <div className="single-item" id={`item-${id}`}>
+      <button onClick={() => handleRemove(id)}>Remove from Favorites</button>
       <div className="image-container">
         <img src={image} alt={title} />
-        <button onClick={() => handleRemove(id)}>Remove from Favorites</button>
       </div>
       <div className="container">
         <div className="left-content">
