@@ -1,8 +1,15 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 // css
 import "./SignInSignUp.css";
+// useAuth Context for signed in users
+import { useAuth } from "../Context/AuthContext";
 
 const SignInSignUp = () => {
+  const { signIn } = useAuth();
+
+  const navigate = useNavigate();
+
   const [signInData, setSignInData] = useState({
     signInEmail: "",
     signInPassword: "",
@@ -47,6 +54,8 @@ const SignInSignUp = () => {
 
       if (response.ok) {
         console.log("Sign in successful");
+        signIn();
+        navigate("/");
       } else {
         const errorData = await response.json();
         console.error("Sign in error:", errorData.error);

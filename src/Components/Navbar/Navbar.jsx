@@ -15,6 +15,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 // useCart Cart Context to show how many items are on the card at that moment
 import { useCart } from "../../Context/CartContext";
+// useAuth for signed in users
+import { useAuth } from "../../Context/AuthContext";
 
 export const Navbar = ({ setActiveCategory }) => {
   const [products, setProducts] = useState([]);
@@ -27,6 +29,8 @@ export const Navbar = ({ setActiveCategory }) => {
   }, []);
 
   const { cartItems } = useCart();
+  
+  const { isAuthenticated, signOut } = useAuth();
 
   const [activeCategory, setLocalActiveCategory] = useState("AllProducts");
 
@@ -73,12 +77,20 @@ export const Navbar = ({ setActiveCategory }) => {
       </div>
 
       <div className="profile">
-        <Link to="/sellproduct">
-          <button>Sell Now!</button>
-        </Link>
-        <Link to="/signinsignup">
-          <button>Sign In</button>
-        </Link>
+        {isAuthenticated ? (
+          <>
+            <button onClick={signOut}>Sign Out</button>
+            {/* Sell Now button */}
+            <Link to="/sellproduct">
+              <button>Sell Now!</button>
+            </Link>
+          </>
+        ) : (
+          // Sign In button
+          <Link to="/signinsignup">
+            <button>Sign In</button>
+          </Link>
+        )}
         <Link to="/cart" className="cart-icon">
           <FontAwesomeIcon icon={faCartShopping} />
           {cartItems.length > 0 && (
