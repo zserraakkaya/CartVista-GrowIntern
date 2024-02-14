@@ -16,8 +16,6 @@ import { useFavorite } from "../../Context/FavoriteContext";
 export const Item = ({ activeCategory }) => {
   const [products, setProducts] = useState([]);
 
-  const [sizes, setSizes] = useState({});
-
   useEffect(() => {
     axios
       .get("http://localhost:4000/api/products")
@@ -25,40 +23,18 @@ export const Item = ({ activeCategory }) => {
       .catch((error) => console.error(error));
   }, []);
 
-  let filteredProducts;
-
-  if (activeCategory.toLowerCase() === "allproducts") {
-    filteredProducts = products;
-  } else {
-    filteredProducts = products.filter(
-      (item) =>
-        item.category &&
-        item.category.toLowerCase() === activeCategory.toLowerCase()
-    );
-  }
-
-  const handleSizeChange = (itemId, newSize) => {
-    setSizes((prevSizes) => ({ ...prevSizes, [itemId]: newSize }));
-  };
-
   return (
     <div className="item">
-      {filteredProducts.map((item, i) => (
-        <SingleItem
-          key={i}
-          id={item._id}
-          image={item.image}
-          title={item.title}
-          price={item.price}
-          size={sizes[item.id] || ""}
-          setSize={(newSize) => handleSizeChange(item.id, newSize)}
-        />
+      {products.map((item, i) => (
+        <SingleItem key={i} {...item} activeCategory={activeCategory} />
       ))}
     </div>
   );
 };
 
-const SingleItem = (props) => {
+const SingleItem = ({ _id, image, title, price, activeCategory }) => {
+  const [size, setSize] = useState("");
+
   const { userEmail, isAuthenticated } = useAuth();
 
   const [showPlusIcon, setShowPlusIcon] = useState(false);
@@ -66,22 +42,20 @@ const SingleItem = (props) => {
   const { addToCart } = useCart();
 
   const { addToFavorite, favoriteItems } = useFavorite();
-  const isFavorite = favoriteItems.some((item) => item.id === props.id);
+  const isFavorite = favoriteItems.some((item) => item.id === _id);
 
-  const handleAddToCart = (size) => {
+  const handleAddToCart = () => {
     if (!size) {
       return;
     }
 
     addToCart({
-      id: props.id,
-      title: props.title,
-      image: props.image,
-      price: props.price,
-      size: size,
+      id: _id,
+      title,
+      image,
+      price,
+      size,
     });
-
-    props.setSize("");
 
     setShowPlusIcon(true);
 
@@ -97,15 +71,15 @@ const SingleItem = (props) => {
     }
 
     addToFavorite({
-      id: props.id,
-      title: props.title,
-      image: props.image,
-      price: props.price,
+      id: _id,
+      title,
+      image,
+      price,
     });
   };
 
   return (
-    <div className="single-item" id={`item-${props.id}`}>
+    <div className="single-item" id={`item-${_id}`}>
       <div className="image-container">
         <div
           className={`star-icon ${isFavorite ? "shining" : ""}`}
@@ -116,13 +90,13 @@ const SingleItem = (props) => {
             className={isFavorite ? "yellow" : ""}
           />
         </div>
-        <img src={props.image} alt={props.title} />
+        <img src={image} alt={title} />
       </div>
       <div className="container">
         <div className="left-content">
           <div className="text-content">
-            <h6>{props.title}</h6>
-            <p>{props.price} €</p>
+            <h6>{title}</h6>
+            <p>{price} €</p>
           </div>
         </div>
 
@@ -131,7 +105,8 @@ const SingleItem = (props) => {
             name=""
             id=""
             required
-            onChange={(e) => props.setSize(e.target.value)}
+            onChange={(e) => setSize(e.target.value)}
+            value={size}
           >
             <option value="">Size</option>
             <option value="XL">XL</option>
@@ -144,7 +119,7 @@ const SingleItem = (props) => {
             <button
               class="add-to-cart-button"
               type="submit"
-              onClick={() => handleAddToCart(props.size)}
+              onClick={() => handleAddToCart(size)}
             >
               <FontAwesomeIcon icon={faCartPlus} />
             </button>
