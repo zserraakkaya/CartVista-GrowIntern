@@ -25,14 +25,20 @@ export const Item = ({ activeCategory }) => {
 
   return (
     <div className="item">
-      {products.map((item, i) => (
-        <SingleItem key={i} {...item} activeCategory={activeCategory} />
-      ))}
+      {products
+        .filter(
+          (item) =>
+            activeCategory === "AllProducts" ||
+            item.category.toLowerCase() === activeCategory.toLowerCase()
+        )
+        .map((item, i) => (
+          <SingleItem key={i} {...item} />
+        ))}
     </div>
   );
 };
 
-const SingleItem = ({ _id, image, title, price, activeCategory }) => {
+const SingleItem = ({ _id, image, title, price, category }) => {
   const [size, setSize] = useState("");
 
   const { userEmail, isAuthenticated } = useAuth();
@@ -45,17 +51,25 @@ const SingleItem = ({ _id, image, title, price, activeCategory }) => {
   const isFavorite = favoriteItems.some((item) => item.id === _id);
 
   const handleAddToCart = () => {
-    if (!size) {
+    if (category.toLowerCase() === "jewelry") {
+      addToCart({
+        id: _id,
+        title,
+        image,
+        price,
+        size: "Standard",
+      });
+    } else if (!size) {
       return;
+    } else {
+      addToCart({
+        id: _id,
+        title,
+        image,
+        price,
+        size,
+      });
     }
-
-    addToCart({
-      id: _id,
-      title,
-      image,
-      price,
-      size,
-    });
 
     setShowPlusIcon(true);
 
@@ -101,20 +115,22 @@ const SingleItem = ({ _id, image, title, price, activeCategory }) => {
         </div>
 
         <form className="right-content" onSubmit={(e) => e.preventDefault()}>
-          <select
-            name=""
-            id=""
-            required
-            onChange={(e) => setSize(e.target.value)}
-            value={size}
-          >
-            <option value="">Size</option>
-            <option value="XL">XL</option>
-            <option value="L">L</option>
-            <option value="M">M</option>
-            <option value="S">S</option>
-            <option value="XS">XS</option>
-          </select>
+          {category.toLowerCase() !== "jewelry" && (
+            <select
+              name=""
+              id=""
+              required
+              onChange={(e) => setSize(e.target.value)}
+              value={size}
+            >
+              <option value="">Size</option>
+              <option value="XL">XL</option>
+              <option value="L">L</option>
+              <option value="M">M</option>
+              <option value="S">S</option>
+              <option value="XS">XS</option>
+            </select>
+          )}
           <div className="button-container">
             <button
               class="add-to-cart-button"
@@ -123,6 +139,7 @@ const SingleItem = ({ _id, image, title, price, activeCategory }) => {
             >
               <FontAwesomeIcon icon={faCartPlus} />
             </button>
+
             {showPlusIcon && (
               <div className="plus-icon">
                 <FontAwesomeIcon icon={faPlus} />
