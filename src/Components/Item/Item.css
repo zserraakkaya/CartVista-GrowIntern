@@ -15,6 +15,10 @@
   box-shadow: 0 0 5px 5px #ccc;
 }
 
+.single-item:hover {
+  transform: scale(1.07);
+}
+
 .item .single-item img {
   max-height: 350px;
   width: 100%;

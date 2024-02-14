@@ -63,6 +63,7 @@
 
 .cart-icon {
   position: relative;
+  margin-right: 10px;
 }
 
 .cart-count {
