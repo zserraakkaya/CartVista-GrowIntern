@@ -41,9 +41,9 @@ export const Item = ({ activeCategory }) => {
 const SingleItem = ({ _id, image, title, price, category }) => {
   const [size, setSize] = useState("");
 
-  const { userEmail, isAuthenticated } = useAuth();
-
   const [showPlusIcon, setShowPlusIcon] = useState(false);
+
+  const { isAuthenticated } = useAuth();
 
   const { addToCart } = useCart();
 
@@ -76,6 +76,8 @@ const SingleItem = ({ _id, image, title, price, category }) => {
     setTimeout(() => {
       setShowPlusIcon(false);
     }, 1000);
+
+    setSize("");
   };
 
   const handleAddToFavorite = () => {
@@ -91,6 +93,10 @@ const SingleItem = ({ _id, image, title, price, category }) => {
       price,
     });
   };
+
+  useEffect(() => {
+    setSize("");
+  }, [category]);
 
   return (
     <div className="single-item" id={`item-${_id}`}>
