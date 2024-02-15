@@ -23,11 +23,11 @@ const Cart = () => {
     <div>
       <table>
         <thead>
-          <tr>
+          <tr id="heading">
             <th>Product</th>
             <th>Size</th>
             <th>Price</th>
-            <th className="trash"></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -41,7 +41,7 @@ const Cart = () => {
               </td>
               <td>{item.size}</td>
               <td>{item.price} €</td>
-              <td className="trash">
+              <td>
                 <FontAwesomeIcon
                   id="remove-button"
                   icon={faTrash}
@@ -51,9 +51,9 @@ const Cart = () => {
             </tr>
           ))}
           <tr>
-            <td className="trash"></td>
-            <td className="trash"></td>
-            <td className="trash">
+            <td></td>
+            <td></td>
+            <td id="total-price">
               <div>
                 <strong>Total Price: {calculateTotalPrice()} €</strong>
                 <button id="pay-button">Proceed to Checkout</button>

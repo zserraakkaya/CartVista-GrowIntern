@@ -3,6 +3,11 @@ table {
   width: 60%;
   border-collapse: collapse;
   text-align: center;
+  border: 1px solid darkgray;
+}
+
+#heading th {
+  padding: 14px;
 }
 
 th,
@@ -29,11 +34,6 @@ td {
 
 th {
   background-color: #f2f2f2;
-}
-
-.trash {
-  border: none;
-  background-color: white;
 }
 
 #remove-button {

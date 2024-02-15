@@ -1,5 +1,3 @@
-/* SignInSignUp.css */
-
 .sign-in-sign-up-container {
   display: flex;
   justify-content: space-around;
@@ -11,26 +9,29 @@
   width: 45%;
 }
 
-form {
+.sign-in-sign-up-container form {
   display: flex;
   flex-direction: column;
 }
 
-label {
+.sign-in-sign-up-container label {
   margin-bottom: 8px;
 }
 
-input {
+.sign-in-sign-up-container input {
   padding: 8px;
   margin-bottom: 16px;
 }
 
-button {
-  padding: 10px;
+.sign-in-sign-up-container button {
   background-color: #24a0ed;
   border-radius: 10px;
   border: 1px solid #fff;
   padding: 10px 20px;
   color: #fff;
   cursor: pointer;
+}
+
+.sign-in-sign-up-container button:hover {
+  background-color: #286184;
 }

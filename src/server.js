@@ -1,10 +1,11 @@
-// mongo db - atlas
+// mongoDB - atlas database
 const { MongoClient } = require("mongodb");
-// express.js
+// express.js (back end web apps framework for building RESTful APIs with Node.js)
 const express = require("express");
-// cors middleware
+// cors middleware (CORS is a node.js package for providing a Connect/Express middleware that can be used to enable CORS with various options)
+// Cross-origin resource sharing
 const cors = require("cors");
-// bcrypt for encrypting passwords
+// bcrypt is a password-hashing function library for NodeJS
 const bcrypt = require("bcrypt");
 // dotenv for env. var.s
 require("dotenv").config();
@@ -19,12 +20,16 @@ const client = new MongoClient(uri);
 app.use(express.json());
 app.use(cors());
 
+// database name CartVista
+// collection names: Products, Users
+
 // Get All Products
 app.get("/api/products", async (req, res) => {
   try {
     await client.connect();
     const db = client.db("cartvista");
     const col = db.collection("products");
+
     const filter = {};
     const documents = await col.find(filter).toArray();
     res.json(documents);
@@ -43,7 +48,6 @@ app.post("/api/products", async (req, res) => {
 
     const newProduct = req.body;
     const result = await col.insertOne(newProduct);
-
     res.json({ success: true, insertedId: result.insertedId });
   } catch (err) {
     console.error(err.stack);
@@ -51,7 +55,7 @@ app.post("/api/products", async (req, res) => {
   }
 });
 
-// Sign Up
+// Sign Up - Users
 app.post("/api/signup", async (req, res) => {
   try {
     await client.connect();
@@ -66,7 +70,6 @@ app.post("/api/signup", async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-
     const newUser = {
       firstName,
       lastName,
@@ -83,7 +86,7 @@ app.post("/api/signup", async (req, res) => {
   }
 });
 
-// Sign In
+// Sign In - Users
 app.post("/api/signin", async (req, res) => {
   try {
     await client.connect();
@@ -98,7 +101,6 @@ app.post("/api/signin", async (req, res) => {
     }
 
     const passwordMatch = await bcrypt.compare(password, user.password);
-
     if (passwordMatch) {
       res.json({
         success: true,
@@ -108,67 +110,6 @@ app.post("/api/signin", async (req, res) => {
       });
     } else {
       res.status(401).json({ error: "Invalid email or password" });
-    }
-  } catch (err) {
-    console.error(err.stack);
-    res.status(500).send("Internal Server Error");
-  }
-});
-
-// Add to Fav.s
-app.post("/api/add-to-favorites", async (req, res) => {
-  try {
-    await client.connect();
-    const db = client.db("cartvista");
-    const col = db.collection("favorites");
-
-    const { userEmail, productId } = req.body;
-
-    const newFavorite = {
-      userEmail,
-      productId,
-    };
-
-    const result = await col.insertOne(newFavorite);
-
-    res.json({ success: true, insertedId: result.insertedId });
-  } catch (err) {
-    console.error(err.stack);
-    res.status(500).send("Internal Server Error");
-  }
-});
-
-// Get Favorites
-app.get("/api/favorites", async (req, res) => {
-  try {
-    await client.connect();
-    const db = client.db("cartvista");
-    const col = db.collection("favorites");
-    const filter = {};
-    const documents = await col.find(filter).toArray();
-    res.json({ favoriteItems: documents });
-  } catch (err) {
-    console.error(err.stack);
-    res.status(500).send("Internal Server Error");
-  }
-});
-
-// Remove from Favorites
-app.delete("/api/remove-from-favorites/:productId", async (req, res) => {
-  try {
-    await client.connect();
-    const db = client.db("cartvista");
-    const col = db.collection("favorites");
-
-    const { userEmail } = req.body;
-    const productId = req.params.productId;
-
-    const result = await col.deleteOne({ userEmail, productId });
-
-    if (result.deletedCount === 1) {
-      res.json({ success: true });
-    } else {
-      res.status(404).json({ error: "Item not found in favorites" });
     }
   } catch (err) {
     console.error(err.stack);

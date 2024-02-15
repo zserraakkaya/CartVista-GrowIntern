@@ -15,7 +15,7 @@ import { useFavorite } from "../../Context/FavoriteContext";
 
 export const Item = ({ activeCategory }) => {
   const [products, setProducts] = useState([]);
-  const [uniqueCategories, setUniqueCategories] = useState([]);
+  const [setUniqueCategories] = useState([]);
 
   useEffect(() => {
     axios
@@ -33,7 +33,7 @@ export const Item = ({ activeCategory }) => {
         setUniqueCategories(uniqueCategories);
       })
       .catch((error) => console.error(error));
-  }, []);
+  });
 
   return (
     <div className="item">
@@ -148,6 +148,9 @@ const SingleItem = ({ _id, image, title, price, category }) => {
               <option value="S">S</option>
               <option value="XS">XS</option>
             </select>
+          )}
+          {category.toLowerCase() === "jewelry" && (
+            <p id="standard">Standard</p>
           )}
           <div className="button-container">
             <button

@@ -6,7 +6,12 @@
   background-color: #333;
   box-shadow: 0 0 5px 5px black;
 
-  #h1 {
+  .logo {
+    order: 1;
+    color: white;
+  }
+
+  .h1 {
     font-family: "Protest Guerrilla", sans-serif;
     font-weight: 400;
     font-style: normal;
@@ -14,33 +19,9 @@
     padding: 0;
   }
 
-  .logo {
-    order: 1;
-    color: white;
-  }
-
   .categories {
     order: 2;
     text-align: center;
-  }
-
-  .profile {
-    display: flex;
-    align-items: center;
-    order: 3;
-
-    button {
-      margin-right: 10px;
-      background-color: #24a0ed;
-      border-radius: 10px;
-      border: 1px solid #333;
-      padding: 10px 20px;
-    }
-
-    svg {
-      margin-left: auto;
-      color: white;
-    }
   }
 
   ul {
@@ -67,20 +48,40 @@
   a:not(.active) > hr {
     display: none;
   }
-}
 
-.cart-icon {
-  position: relative;
-  margin-right: 10px;
-}
+  .profile {
+    display: flex;
+    align-items: center;
+    order: 3;
 
-.cart-count {
-  position: absolute;
-  top: -11px;
-  right: -11px;
-  background-color: red;
-  color: white;
-  border-radius: 50%;
-  padding: 3px 6px;
-  font-size: 10px;
+    button {
+      margin-right: 10px;
+      background-color: #24a0ed;
+      border-radius: 10px;
+      border: 1px solid #333;
+      padding: 10px 20px;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2a7db1;
+    }
+
+    .cart-icon {
+      position: relative;
+      margin-right: 10px;
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -11px;
+      right: -11px;
+      background-color: red;
+      color: white;
+      border-radius: 50%;
+      padding: 3px 6px;
+      font-size: 10px;
+    }
+  }
 }

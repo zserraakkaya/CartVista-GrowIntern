@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from "react";
+// css
+import "./Navbar.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
+// font awesome icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCartShopping,
-  faJedi,
-  faStar,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCartShopping, faStar } from "@fortawesome/free-solid-svg-icons";
 import { useCart } from "../../Context/CartContext";
 import { useAuth } from "../../Context/AuthContext";
-
-import "./Navbar.css";
 
 export const Navbar = ({ setActiveCategory }) => {
   const [products, setProducts] = useState([]);
@@ -41,7 +38,7 @@ export const Navbar = ({ setActiveCategory }) => {
   return (
     <div className="navbar">
       <div className="logo">
-        <h1 id="h1">CARTVISTA</h1>
+        <h1 className="h1">CARTVISTA</h1>
       </div>
 
       <div className="categories">

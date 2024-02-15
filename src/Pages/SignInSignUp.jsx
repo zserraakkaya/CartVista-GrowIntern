@@ -62,7 +62,7 @@ const SignInSignUp = () => {
         console.error("Sign in error:", errorData.error);
       }
     } catch (error) {
-      console.error("Error during sign-in:", error);
+      console.error("Error during sign in:", error);
     }
   };
 
@@ -90,7 +90,7 @@ const SignInSignUp = () => {
         console.error("Sign up error:", errorData.error);
       }
     } catch (error) {
-      console.error("Error during sign-up:", error);
+      console.error("Error during sign up:", error);
     }
   };
 

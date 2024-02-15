@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import "./SellProduct.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+// useAuth to check if the user signed in
 import { useAuth } from "../Context/AuthContext";
 
 export const SellProduct = () => {

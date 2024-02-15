@@ -3,11 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../Context/AuthContext";
 // useFavorite Context
 import { useFavorite } from "../Context/FavoriteContext";
+// css
 import "./Favorites.css";
 // font awesome icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus, faPlus, faStar } from "@fortawesome/free-solid-svg-icons";
-// useCart Cart Context to add items to the cart
+// useCart Context to add items to the cart
 import { useCart } from "../Context/CartContext";
 
 export const Favorites = () => {
@@ -89,21 +90,8 @@ const FavoriteItem = ({
     }, 1000);
   };
 
-  const { addToFavorite, removeFromFavorite, favoriteItems } = useFavorite();
+  const { favoriteItems } = useFavorite();
   const isFavorite = favoriteItems.some((item) => item.id === id);
-
-  const handleToggleFavorite = () => {
-    if (isFavorite) {
-      removeFromFavorite(id);
-    } else {
-      addToFavorite({
-        id: id,
-        title: title,
-        image: image,
-        price: price,
-      });
-    }
-  };
 
   return (
     <div className="single-item" id={`item-${id}`}>
