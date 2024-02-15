@@ -47,7 +47,7 @@ export const Navbar = ({ setActiveCategory }) => {
   return (
     <div className="navbar">
       <div className="logo">
-        <FontAwesomeIcon icon={faJedi} />
+        <h1 id="h1">CARTVISTA</h1>
       </div>
 
       <div className="categories">
