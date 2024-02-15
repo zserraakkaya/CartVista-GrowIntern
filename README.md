@@ -5,6 +5,7 @@
 CartVista is a shopping web page for women. On the homepage, you can see 'All' category and all the products available to sale.
 
 This app made with React.js. MongoDB Atlas database is used. On the database, there are 2 collections: Products and Users.
+Also Express.js is used.
 
 For detecting categories, it retrieves all the products from the database and gets all the unique categories.
 
