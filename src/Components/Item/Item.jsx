@@ -15,11 +15,23 @@ import { useFavorite } from "../../Context/FavoriteContext";
 
 export const Item = ({ activeCategory }) => {
   const [products, setProducts] = useState([]);
+  const [uniqueCategories, setUniqueCategories] = useState([]);
 
   useEffect(() => {
     axios
       .get("http://localhost:4000/api/products")
-      .then((response) => setProducts(response.data))
+      .then((response) => {
+        const processedData = response.data.map((item) => ({
+          ...item,
+          category: item.category.toLowerCase(),
+        }));
+
+        setProducts(processedData);
+
+        const categories = processedData.map((item) => item.category);
+        const uniqueCategories = Array.from(new Set(categories));
+        setUniqueCategories(uniqueCategories);
+      })
       .catch((error) => console.error(error));
   }, []);
 
@@ -28,8 +40,8 @@ export const Item = ({ activeCategory }) => {
       {products
         .filter(
           (item) =>
-            activeCategory === "AllProducts" ||
-            item.category.toLowerCase() === activeCategory.toLowerCase()
+            activeCategory.toLowerCase() === "allproducts" ||
+            item.category === activeCategory.toLowerCase()
         )
         .map((item, i) => (
           <SingleItem key={i} {...item} />

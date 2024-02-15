@@ -1,22 +1,16 @@
-// useState to keep track of active tab of categories
 import React, { useState, useEffect } from "react";
-// axios
 import axios from "axios";
-// link
 import { Link } from "react-router-dom";
-// css for Navbar.jsx
-import "./Navbar.css";
-// font awesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCartShopping,
   faJedi,
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
-// useCart Cart Context to show how many items are on the card at that moment
 import { useCart } from "../../Context/CartContext";
-// useAuth for signed in users
 import { useAuth } from "../../Context/AuthContext";
+
+import "./Navbar.css";
 
 export const Navbar = ({ setActiveCategory }) => {
   const [products, setProducts] = useState([]);
@@ -29,12 +23,12 @@ export const Navbar = ({ setActiveCategory }) => {
   }, []);
 
   const { cartItems } = useCart();
-
   const { isAuthenticated, signOut } = useAuth();
-
   const [activeCategory, setLocalActiveCategory] = useState("AllProducts");
 
-  const uniqueCategories = [...new Set(products.map((item) => item.category))];
+  const uniqueCategories = [
+    ...new Set(products.map((item) => item.category.toLowerCase())),
+  ];
 
   const handleCategoryClick = (category) => {
     if (category === "Favorites") {
@@ -103,13 +97,11 @@ export const Navbar = ({ setActiveCategory }) => {
         {isAuthenticated ? (
           <>
             <button onClick={signOut}>Sign Out</button>
-            {/* Sell Now button */}
             <Link to="/sellproduct">
               <button>Sell Now!</button>
             </Link>
           </>
         ) : (
-          // Sign In button
           <Link to="/signinsignup">
             <button>Sign In</button>
           </Link>
