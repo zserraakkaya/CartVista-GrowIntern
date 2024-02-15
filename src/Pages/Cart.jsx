@@ -11,7 +11,8 @@ const Cart = () => {
   const { cartItems, removeFromCart } = useCart();
 
   const calculateTotalPrice = () => {
-    return cartItems.reduce((total, item) => total + item.price, 0);
+    const totalPrice = cartItems.reduce((total, item) => total + item.price, 0);
+    return totalPrice.toFixed(2);
   };
 
   const handleRemoveItem = (itemId) => {

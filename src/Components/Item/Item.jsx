@@ -125,9 +125,9 @@ const SingleItem = ({ _id, image, title, price, category }) => {
             <select
               name=""
               id=""
-              required
               onChange={(e) => setSize(e.target.value)}
               value={size}
+              required
             >
               <option value="">Size</option>
               <option value="XL">XL</option>
